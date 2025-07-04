@@ -1,0 +1,25 @@
+{
+  "name": "medi_buddy",
+  "version": "1.0.0",
+  "description": "none",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madanVedansh21/Medi_Buddy.git"
+  },
+  "author": "Vedansh madan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madanVedansh21/Medi_Buddy/issues"
+  },
+  "homepage": "https://github.com/madanVedansh21/Medi_Buddy#readme",
+  "dependencies": {
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.1"
+  }
+}
