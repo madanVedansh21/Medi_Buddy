@@ -18,6 +18,6 @@ app.use(cookieParser());
 
 // import routes
 import userRouter from "./routes/user.routes.js";
-app.use("/", isLoggedIn, userRouter); // import remaining isLoggedIn middleware and userRouter
+app.use("/", userRouter); // import remaining isLoggedIn middleware and userRouter
 
 export default app;

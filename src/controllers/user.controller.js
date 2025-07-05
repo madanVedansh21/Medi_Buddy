@@ -1,6 +1,7 @@
 import User from "../models/users.model.js";
 import Medi from "../models/medi.model.js";
 import jwt from "jsonwebtoken";
+import { ApiResponse } from "../util/ApiResponse.js";
 import { ApiError } from "../util/ApiError.js";
 // register user controller
 
@@ -41,10 +42,33 @@ const registerUser = async (req, res) => {
     "-password -refreshToken"
   );
 
-  if (!createdUser) {
+  if (createdUser) {
+    // generate access and referesh tokens and send them in the response
+    const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(
+      user._id
+    );
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+    res
+      .status(201)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, options)
+      .json(
+        new ApiResponse(
+          201,
+          {
+            user: createdUser,
+            accessToken,
+            refreshToken,
+          },
+          "User logged In Successfully"
+        )
+      );
+  } else {
     throw new ApiError(500, "Something went wrong while registering the user");
   }
-  // access token and refresh token will be generated in the model method
 };
 
 export { registerUser, generateAccessAndRefereshTokens };
