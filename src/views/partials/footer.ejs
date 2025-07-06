@@ -1,10 +1,82 @@
-    </main>
-    <footer class="footer mt-auto py-3 bg-light border-top">
-        <div class="container text-center">
-            <span class="text-muted">&copy; <%= new Date().getFullYear() %> MediBuddy. All rights reserved.</span>
+</main>
+<footer class="footer mt-auto py-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-top: 1px solid rgba(59, 130, 246, 0.3);">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="https://github.com/madanVedansh21/Medi_Buddy" style="color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;" 
+                       onmouseover="this.style.color='#3b82f6'" 
+                       onmouseout="this.style.color='#94a3b8'">Github link</a>
+                    <a href="/support" style="color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;" 
+                       onmouseover="this.style.color='#3b82f6'" 
+                       onmouseout="this.style.color='#94a3b8'">Support</a>
+                </div>
+            </div>
+        </div>            
+        <hr style="border-color: rgba(59, 130, 246, 0.2); margin: 1.5rem 0 1rem 0;">
+        <div class="row">
+            <div class="col-12 text-center">
+                <p style="color: #64748b; font-size: 0.8rem; margin: 0;">
+                    Built with ❤️ for better healthcare management
+                </p>
+            </div>
         </div>
-    </footer>
-    <!-- Bootstrap JS Bundle CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+</footer>
+
+<style>
+    /* Footer specific styles to match header theme */
+    .footer {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
+        animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+    }
+
+    /* Responsive footer links */
+    @media (max-width: 768px) {
+        .footer .gap-3 {
+            gap: 1rem !important;
+            flex-wrap: wrap;
+        }
+    }
+
+    /* Footer link hover effects */
+    .footer a {
+        position: relative;
+    }
+
+    .footer a::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #3b82f6;
+        transition: width 0.3s ease;
+    }
+
+    .footer a:hover::after {
+        width: 100%;
+    }
+</style>
+
+<!-- Bootstrap JS Bundle CDN -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,52 +1,217 @@
 <%- include('partials/header') %>
 
 <div
-  class="container-fluid bg-light min-vh-100 d-flex flex-column justify-content-center align-items-center"
+  class="landing-hero"
+  style="
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  "
 >
-  <div class="text-center">
-    <h1 class="display-3 fw-bold mb-3 text-primary">Welcome to MediBuddy</h1>
-    <p class="lead mb-4 text-secondary">
-      Your one-stop solution for managing health, appointments, and medical
-      records with ease.
-    </p>
-    <a href="/register" class="btn btn-primary btn-lg px-5 me-2">Get Started</a>
-    <a href="/login" class="btn btn-outline-primary btn-lg px-5">Login</a>
+  <!-- Animated background particles -->
+  <div
+    class="particles-container"
+    style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    "
+  >
+    <div
+      class="particle"
+      style="
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(59, 130, 246, 0.6);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+      "
+    ></div>
+    <div
+      class="particle"
+      style="
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: rgba(59, 130, 246, 0.4);
+        border-radius: 50%;
+        animation: float 8s ease-in-out infinite 2s;
+      "
+    ></div>
+    <div
+      class="particle"
+      style="
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background: rgba(59, 130, 246, 0.3);
+        border-radius: 50%;
+        animation: float 7s ease-in-out infinite 4s;
+      "
+    ></div>
   </div>
-  <div class="row mt-5 w-100 justify-content-center">
-    <div class="col-md-4 mb-4">
-      <div class="card shadow-sm h-100">
-        <div class="card-body text-center">
-          <i class="bi bi-calendar2-check display-4 text-primary mb-3"></i>
-          <h5 class="card-title">Easy Appointments</h5>
-          <p class="card-text">
-            Book and manage your doctor appointments effortlessly.
-          </p>
-        </div>
+
+  <div
+    class="container-fluid d-flex flex-column justify-content-center align-items-center"
+    style="min-height: 100vh; position: relative; z-index: 2"
+  >
+    <div class="text-center mb-5" style="max-width: 800px">
+      <h1
+        class="display-2 fw-bold mb-4"
+        style="
+          color: #f8fafc;
+          text-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+          line-height: 1.2;
+        "
+      >
+        Welcome to
+        <span
+          style="
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          "
+          >MediBuddy</span
+        >
+      </h1>
+      <p
+        class="lead mb-5"
+        style="
+          color: #cbd5e1;
+          font-size: 1.3rem;
+          line-height: 1.6;
+          font-weight: 300;
+        "
+      >
+        Your one-stop solution for managing health, appointments, and medical
+        records with ease and security.
+      </p>
+      <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+        <a
+          href="/register"
+          class="btn btn-lg px-5 py-3"
+          style="
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border: none;
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+          "
+          onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 35px rgba(59, 130, 246, 0.4)'"
+          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(59, 130, 246, 0.3)'"
+        >
+          Get Started
+        </a>
+        <a
+          href="/login"
+          class="btn btn-lg px-5 py-3"
+          style="
+            background: transparent;
+            border: 2px solid #3b82f6;
+            color: #3b82f6;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+          "
+          onmouseover="this.style.background='rgba(59, 130, 246, 0.1)'; this.style.transform='translateY(-2px)'"
+          onmouseout="this.style.background='transparent'; this.style.transform='translateY(0)'"
+        >
+          Login
+        </a>
       </div>
     </div>
-    <div class="col-md-4 mb-4">
-      <div class="card shadow-sm h-100">
-        <div class="card-body text-center">
-          <i class="bi bi-file-earmark-medical display-4 text-success mb-3"></i>
-          <h5 class="card-title">Medical Records</h5>
-          <p class="card-text">
-            Securely store and access your medical history anytime.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-4">
-      <div class="card shadow-sm h-100">
-        <div class="card-body text-center">
-          <i class="bi bi-chat-dots display-4 text-info mb-3"></i>
-          <h5 class="card-title">24/7 Support</h5>
-          <p class="card-text">
-            Get instant help from our medical support team.
-          </p>
+
+    <div
+      class="row w-100 justify-content-center mt-5"
+      style="max-width: 1200px"
+    >
+      <div class="col-lg-10 col-md-12 mb-4">
+        <div
+          class="feature-card h-100 p-4"
+          style="
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+          "
+          onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='rgba(16, 185, 129, 0.5)'; this.style.boxShadow='0 20px 40px rgba(16, 185, 129, 0.2)'"
+          onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(16, 185, 129, 0.2)'; this.style.boxShadow='none'"
+        >
+          <div
+            class="card-glow"
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              height: 1px;
+              background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(16, 185, 129, 0.5),
+                transparent
+              );
+              opacity: 0;
+              transition: opacity 0.3s ease;
+            "
+          ></div>
+          <div class="text-center">
+            <div
+              class="icon-wrapper mb-3"
+              style="
+                width: 120px;
+                height: 120px;
+                margin: 0 auto;
+                background: linear-gradient(
+                  135deg,
+                  rgba(16, 185, 129, 0.2),
+                  rgba(16, 185, 129, 0.1)
+                );
+                border-radius: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <img
+                src="/images/medical-records-img.png"
+                alt="Medical Records"
+                style="
+                  width: 75%;
+                  height: 75%;
+                  object-fit: cover;
+                  border-radius: 12px;
+                "
+              />
+            </div>
+            <h5
+              class="card-title mb-3"
+              style="color: #f8fafc; font-weight: 600; font-size: 1.3rem"
+            >
+              Medical Records
+            </h5>
+            <p
+              class="card-text"
+              style="color: #cbd5e1; line-height: 1.6; font-size: 0.95rem"
+            >
+              Securely store and access your complete medical history anytime
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <%- include('partials/footer') %>
