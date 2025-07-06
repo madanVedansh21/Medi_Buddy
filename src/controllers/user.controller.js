@@ -95,4 +95,12 @@ const loginUser = async (req, res) => {
     .redirect("/dashboard");
 };
 
-export { registerUser, generateAccessAndRefereshTokens, loginUser };
+const logoutUser = async (req, res) => {
+  // clear the cookies and redirect to login page
+  res
+    .clearCookie("accessToken", { httpOnly: true, secure: true })
+    .clearCookie("refreshToken", { httpOnly: true, secure: true })
+    .redirect("/");
+};
+
+export { registerUser, generateAccessAndRefereshTokens, loginUser, logoutUser };

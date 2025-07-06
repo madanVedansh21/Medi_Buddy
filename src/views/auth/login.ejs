@@ -1,0 +1,250 @@
+<%- include('../partials/header') %>
+
+<main
+  class="flex-grow-1 d-flex align-items-center justify-content-center py-5"
+  style="
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    min-height: calc(100vh - 200px);
+  "
+>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div
+          class="card border-0 shadow-lg"
+          style="
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+          "
+        >
+          <div class="card-body p-5">
+            <!-- Header -->
+            <div class="text-center mb-4">
+              <div class="mb-3">
+                <i
+                  class="fas fa-sign-in-alt"
+                  style="font-size: 3rem; color: #3b82f6"
+                ></i>
+              </div>
+              <h2 class="mb-2" style="color: #ffffff; font-weight: 700">
+                Welcome Back
+              </h2>
+              <p style="color: #94a3b8; font-size: 0.95rem">
+                Sign in to your MediBuddy account
+              </p>
+            </div>
+
+            <!-- Form -->
+            <form
+              action="/login"
+              method="POST"
+              class="needs-validation"
+              novalidate
+            >
+              <!-- Email -->
+              <div class="mb-4">
+                <label
+                  for="email"
+                  class="form-label"
+                  style="color: #e2e8f0; font-weight: 500"
+                  >Email Address</label
+                >
+                <div class="input-group">
+                  <span
+                    class="input-group-text border-0"
+                    style="background: rgba(59, 130, 246, 0.1); color: #3b82f6"
+                  >
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                  <input
+                    type="email"
+                    class="form-control border-0"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                    style="
+                      background: rgba(15, 23, 42, 0.8);
+                      color: #ffffff;
+                      border: 1px solid rgba(59, 130, 246, 0.3) !important;
+                    "
+                  />
+                </div>
+              </div>
+
+              <!-- Password -->
+              <div class="mb-4">
+                <label
+                  for="password"
+                  class="form-label"
+                  style="color: #e2e8f0; font-weight: 500"
+                  >Password</label
+                >
+                <div class="input-group">
+                  <span
+                    class="input-group-text border-0"
+                    style="background: rgba(59, 130, 246, 0.1); color: #3b82f6"
+                  >
+                    <i class="fas fa-lock"></i>
+                  </span>
+                  <input
+                    type="password"
+                    class="form-control border-0"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                    style="
+                      background: rgba(15, 23, 42, 0.8);
+                      color: #ffffff;
+                      border: 1px solid rgba(59, 130, 246, 0.3) !important;
+                    "
+                  />
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                class="btn w-100 py-3 mb-4"
+                style="
+                  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+                  border: none;
+                  color: white;
+                  font-weight: 600;
+                  border-radius: 8px;
+                  transition: all 0.3s ease;
+                "
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 10px 25px rgba(59, 130, 246, 0.4)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'"
+              >
+                <i class="fas fa-sign-in-alt me-2"></i>
+                Sign In
+              </button>
+
+              <!-- Divider -->
+              <div class="text-center mb-4">
+                <div class="d-flex align-items-center">
+                  <hr
+                    class="flex-grow-1"
+                    style="border-color: rgba(59, 130, 246, 0.3)"
+                  />
+                  <span class="px-3" style="color: #64748b; font-size: 0.9rem"
+                    >or</span
+                  >
+                  <hr
+                    class="flex-grow-1"
+                    style="border-color: rgba(59, 130, 246, 0.3)"
+                  />
+                </div>
+              </div>
+
+              <!-- Social Login Buttons -->
+              <div class="row mb-4">
+                <div class="col-6">
+                  <button
+                    type="button"
+                    class="btn w-100 py-2"
+                    style="
+                      background: rgba(59, 130, 246, 0.1);
+                      border: 1px solid rgba(59, 130, 246, 0.3);
+                      color: #94a3b8;
+                    "
+                  >
+                    <i class="fab fa-google me-2"></i>Google
+                  </button>
+                </div>
+                <div class="col-6">
+                  <button
+                    type="button"
+                    class="btn w-100 py-2"
+                    style="
+                      background: rgba(59, 130, 246, 0.1);
+                      border: 1px solid rgba(59, 130, 246, 0.3);
+                      color: #94a3b8;
+                    "
+                  >
+                    <i class="fab fa-facebook me-2"></i>Facebook
+                  </button>
+                </div>
+              </div>
+
+              <!-- Register Link -->
+              <div class="text-center">
+                <p style="color: #94a3b8; font-size: 0.9rem">
+                  Don't have an account?
+                  <a
+                    href="/register"
+                    style="
+                      color: #3b82f6;
+                      text-decoration: none;
+                      font-weight: 500;
+                    "
+                    >Create one here</a
+                  >
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<style>
+  /* Form focus effects */
+  .form-control:focus {
+    background: rgba(15, 23, 42, 0.9) !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25) !important;
+    color: #ffffff !important;
+  }
+
+  .form-control::placeholder {
+    color: #64748b !important;
+  }
+
+  .form-check-input:checked {
+    background-color: #3b82f6 !important;
+    border-color: #3b82f6 !important;
+  }
+
+  .form-check-input:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25) !important;
+  }
+
+  /* Card hover effect */
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  /* Input group styling */
+  .input-group-text {
+    border-right: none !important;
+  }
+
+  .input-group .form-control {
+    border-left: none !important;
+  }
+
+  .input-group .form-control:focus {
+    border-left: none !important;
+  }
+
+  /* Social button hover effects */
+  .btn:not([type="submit"]):hover {
+    background: rgba(59, 130, 246, 0.2) !important;
+    border-color: rgba(59, 130, 246, 0.5) !important;
+    color: #3b82f6 !important;
+  }
+</style>
+
+<%- include('../partials/footer') %>

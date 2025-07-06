@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      <%= typeof title !== 'undefined' ? title : 'Dashboard | MediBuddy' %>
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome (for icons like heartbeat and logout) -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Optional: Your dashboard CSS -->
+    <link rel="stylesheet" href="/stylesheets/dashboard.css" />
+  </head>
+
+  <body>
+    <!-- Header Start -->
+    <header
+      class="navbar navbar-expand-lg fixed-top"
+      style="
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+        backdrop-filter: blur(10px);
+      "
+    >
+      <!-- Animated top border -->
+      <div
+        style="
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(59, 130, 246, 0.5),
+            transparent
+          );
+          animation: shimmer 3s ease-in-out infinite;
+        "
+      ></div>
+
+      <div class="container-fluid">
+        <!-- Logo -->
+        <a
+          class="navbar-brand d-flex align-items-center"
+          href="/dashboard"
+          style="color: #ffffff; font-weight: 700; font-size: 1.5rem"
+        >
+          <div class="position-relative me-2">
+            <i
+              class="fas fa-heartbeat"
+              style="color: #3b82f6; font-size: 2rem"
+            ></i>
+            <div
+              style="
+                position: absolute;
+                inset: 0;
+                background: rgba(59, 130, 246, 0.2);
+                border-radius: 50%;
+                filter: blur(8px);
+              "
+            ></div>
+          </div>
+          MediBuddy
+        </a>
+
+        <!-- Mobile toggle -->
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          style="color: #ffffff"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Navigation -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link position-relative"
+                href="/"
+                style="
+                  color: #94a3b8;
+                  font-weight: 500;
+                  transition: color 0.3s ease;
+                "
+                onmouseover="this.style.color='#3b82f6'"
+                onmouseout="this.style.color='#94a3b8'"
+              >
+                Home
+                <span
+                  style="
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 0;
+                    height: 2px;
+                    background: #3b82f6;
+                    transition: width 0.3s ease;
+                  "
+                ></span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link position-relative"
+                href="/about"
+                style="
+                  color: #94a3b8;
+                  font-weight: 500;
+                  transition: color 0.3s ease;
+                "
+                onmouseover="this.style.color='#3b82f6'"
+                onmouseout="this.style.color='#94a3b8'"
+              >
+                About
+                <span
+                  style="
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 0;
+                    height: 2px;
+                    background: #3b82f6;
+                    transition: width 0.3s ease;
+                  "
+                ></span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Right side buttons -->
+          <div class="d-flex align-items-center gap-3">
+            <a
+              href="/contact-us"
+              class="btn btn-outline-primary d-none d-md-inline-flex"
+              style="
+                border-color: rgba(59, 130, 246, 0.5);
+                color: #3b82f6;
+                font-weight: 500;
+                transition: all 0.3s ease;
+              "
+              onmouseover="this.style.background='rgba(59, 130, 246, 0.1)'"
+              onmouseout="this.style.background='transparent'"
+            >
+              <i class="fas fa-envelope me-2"></i>Contact
+            </a>
+
+            <form action="/logout" method="POST" class="d-inline">
+              <button
+                type="submit"
+                class="btn"
+                style="
+                  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+                  color: white;
+                  border: none;
+                  font-weight: 600;
+                  transition: all 0.3s ease;
+                "
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(220, 38, 38, 0.4)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'"
+              >
+                <i class="fas fa-sign-out-alt me-2"></i>Logout
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Header End -->
+
+    <main class="container" style="margin-top: 100px">
+      <!-- Your dashboard content goes here -->
+    </main>
+
+    <!-- Optional Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+      @keyframes shimmer {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      .nav-link:hover span {
+        width: 100% !important;
+      }
+
+      @media (max-width: 768px) {
+        .navbar-nav {
+          padding-top: 1rem;
+        }
+
+        .navbar-nav .nav-link {
+          padding: 0.75rem 0;
+        }
+      }
+    </style>
+  </body>
+</html>

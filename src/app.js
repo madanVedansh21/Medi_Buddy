@@ -42,8 +42,11 @@ app.get("/dashboard", verifyJWT, (req, res) => {
   res.render("dashboard", { user: req.user });
 });
 
+app.get("/contact-us", (req, res) => {
+  res.render("auth/contactUs");
+});
 // import routes
 import userRouter from "./routes/user.routes.js";
-app.use("/", userRouter); // import remaining isLoggedIn middleware and userRouter
+app.use("/", userRouter);
 
 export default app;
