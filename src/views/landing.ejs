@@ -1,0 +1,52 @@
+<%- include('partials/header') %>
+
+<div
+  class="container-fluid bg-light min-vh-100 d-flex flex-column justify-content-center align-items-center"
+>
+  <div class="text-center">
+    <h1 class="display-3 fw-bold mb-3 text-primary">Welcome to MediBuddy</h1>
+    <p class="lead mb-4 text-secondary">
+      Your one-stop solution for managing health, appointments, and medical
+      records with ease.
+    </p>
+    <a href="/register" class="btn btn-primary btn-lg px-5 me-2">Get Started</a>
+    <a href="/login" class="btn btn-outline-primary btn-lg px-5">Login</a>
+  </div>
+  <div class="row mt-5 w-100 justify-content-center">
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="bi bi-calendar2-check display-4 text-primary mb-3"></i>
+          <h5 class="card-title">Easy Appointments</h5>
+          <p class="card-text">
+            Book and manage your doctor appointments effortlessly.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="bi bi-file-earmark-medical display-4 text-success mb-3"></i>
+          <h5 class="card-title">Medical Records</h5>
+          <p class="card-text">
+            Securely store and access your medical history anytime.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <i class="bi bi-chat-dots display-4 text-info mb-3"></i>
+          <h5 class="card-title">24/7 Support</h5>
+          <p class="card-text">
+            Get instant help from our medical support team.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

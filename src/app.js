@@ -2,13 +2,17 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Set EJS as the view engine
 app.set("view engine", "ejs");
 
-// Set the views directory (assuming app.js is in src/)
+// Set the views directory
 app.set("views", path.join(__dirname, "views"));
 
 // Serve static files from src/public
@@ -25,6 +29,11 @@ app.use(
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(cookieParser());
+
+// landing page route
+app.get("/", (req, res) => {
+  res.render("landing");
+});
 
 // import routes
 import userRouter from "./routes/user.routes.js";
