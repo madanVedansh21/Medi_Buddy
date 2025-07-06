@@ -35,6 +35,13 @@ app.get("/", (req, res) => {
   res.render("landing");
 });
 
+// import verifyJWT middleware
+import { verifyJWT } from "./middlewares/auth.middleware.js";
+
+app.get("/dashboard", verifyJWT, (req, res) => {
+  res.render("dashboard", { user: req.user });
+});
+
 // import routes
 import userRouter from "./routes/user.routes.js";
 app.use("/", userRouter); // import remaining isLoggedIn middleware and userRouter

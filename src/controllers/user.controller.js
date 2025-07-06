@@ -55,20 +55,44 @@ const registerUser = async (req, res) => {
       .status(201)
       .cookie("accessToken", accessToken, options)
       .cookie("refreshToken", refreshToken, options)
-      .json(
-        new ApiResponse(
-          201,
-          {
-            user: createdUser,
-            accessToken,
-            refreshToken,
-          },
-          "User logged In Successfully"
-        )
-      );
+      .redirect("/dashboard");
   } else {
     throw new ApiError(500, "Something went wrong while registering the user");
   }
 };
 
-export { registerUser, generateAccessAndRefereshTokens };
+const loginUser = async (req, res) => {
+  // take out user credentials from request body
+  // check if they are present or not
+  // db call to find user by email
+  // if user exists, check if password is correct or not
+  // if password is correct, generate access and refresh tokens
+
+  const { email, password } = req.body;
+  if (!email || !password) {
+    throw new ApiError(400, "Email and password are required");
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new ApiError(400, "User does not exist with this email");
+  }
+  const isPasswordCorrect = await user.isPasswordCorrect(password);
+  if (!isPasswordCorrect) {
+    throw new ApiError(400, "Incorrect password");
+  }
+  // generate access and referesh tokens
+  const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(
+    user._id
+  );
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+  res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .redirect("/dashboard");
+};
+
+export { registerUser, generateAccessAndRefereshTokens, loginUser };
