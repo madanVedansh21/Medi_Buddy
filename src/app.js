@@ -1,8 +1,18 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 const app = express();
+
+// Set EJS as the view engine
+app.set("view engine", "ejs");
+
+// Set the views directory
+app.set("views", path.join(__dirname, "src", "views"));
+// Set the public directory for static files
+app.set("public", path.join(__dirname, "src", "public"));
+
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
