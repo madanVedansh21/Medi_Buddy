@@ -8,10 +8,11 @@ const app = express();
 // Set EJS as the view engine
 app.set("view engine", "ejs");
 
-// Set the views directory
-app.set("views", path.join(__dirname, "src", "views"));
-// Set the public directory for static files
-app.set("public", path.join(__dirname, "src", "public"));
+// Set the views directory (assuming app.js is in src/)
+app.set("views", path.join(__dirname, "views"));
+
+// Serve static files from src/public
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
   cors({
@@ -23,7 +24,6 @@ app.use(
 // some initial middlewares setups
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
-app.use(express.static("public"));
 app.use(cookieParser());
 
 // import routes
