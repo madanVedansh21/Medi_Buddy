@@ -5,6 +5,7 @@ import {
   registerUser,
   loginUser,
   logoutUser,
+  contactUSContent,
 } from "../controllers/user.controller.js";
 
 const router = Router();
@@ -24,6 +25,7 @@ router
   .post(loginUser);
 
 router.route("/logout").post(verifyJWT, logoutUser);
+router.route("/contact").post(contactUSContent);
 
 // export the router
 

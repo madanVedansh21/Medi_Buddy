@@ -45,6 +45,16 @@ app.get("/dashboard", verifyJWT, (req, res) => {
 app.get("/contact-us", (req, res) => {
   res.render("auth/contactUs");
 });
+
+app.get("/medicines", verifyJWT, (req, res) => {
+  res.render("medi/medicinesRecord", { user: req.user });
+});
+app.get("/logs", verifyJWT, (req, res) => {
+  res.render("medi/logs", { user: req.user });
+});
+app.get("/notifications", verifyJWT, (req, res) => {
+  res.render("medi/notifications", { user: req.user });
+});
 // import routes
 import userRouter from "./routes/user.routes.js";
 app.use("/", userRouter);

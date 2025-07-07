@@ -1,6 +1,7 @@
 import User from "../models/users.model.js";
 import Medi from "../models/medi.model.js";
 import jwt from "jsonwebtoken";
+import fs from "fs";
 import { ApiResponse } from "../util/ApiResponse.js";
 import { ApiError } from "../util/ApiError.js";
 // register user controller
@@ -103,4 +104,31 @@ const logoutUser = async (req, res) => {
     .redirect("/");
 };
 
-export { registerUser, generateAccessAndRefereshTokens, loginUser, logoutUser };
+const contactUSContent = async (req, res) => {
+  const { fullName, email, phone, message, subject } = req.body;
+
+  if (!fullName || !email || !message || !subject) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+    const content = `Name: ${fullName}, Email: ${email}, Phone: ${
+      phone || "N/A"
+    }, Message: ${message}\n , Subject: ${subject}\n\n`;
+    await fs.promises.appendFile("contactUs.txt", content);
+    return res.status(200).json({ message: "Message saved successfully" });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: "Something went wrong while saving the message" });
+  }
+};
+
+export {
+  registerUser,
+  generateAccessAndRefereshTokens,
+  loginUser,
+  logoutUser,
+  contactUSContent,
+};

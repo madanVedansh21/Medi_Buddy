@@ -11,7 +11,8 @@
 # Temporary files
 *.tmp
 *~
-
+#contact us logs 
+contactUs.txt
 *.bak
 # Environment files (containing secrets, API keys, credentials)
 .env
