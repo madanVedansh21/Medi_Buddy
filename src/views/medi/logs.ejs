@@ -227,184 +227,23 @@
                 Symptom History
               </h3>
             </div>
-            <div class="card-body p-0" id="symptomHistory">
-              <!-- Symptom Entry 1 -->
-              <div
-                class="symptom-entry p-4 border-bottom"
-                style="border-color: rgba(16, 185, 129, 0.2)"
-              >
-                <div
-                  class="d-flex justify-content-between align-items-start mb-2"
-                >
-                  <div class="d-flex align-items-center">
-                    <span
-                      class="badge me-2"
-                      style="
-                        background: #f59e0b;
-                        color: white;
-                        padding: 5px 10px;
-                        border-radius: 15px;
-                      "
-                    >
-                      Moderate
-                    </span>
-                    <span
-                      class="badge"
-                      style="
-                        background: #3b82f6;
-                        color: white;
-                        padding: 5px 10px;
-                        border-radius: 15px;
-                      "
-                    >
-                      Pain
-                    </span>
-                  </div>
-                  <small style="color: #64748b">
-                    <i class="fas fa-clock me-1"></i>
-                    Today, 2:30 PM
-                  </small>
-                </div>
-                <p style="color: #f8fafc; margin: 0; line-height: 1.6">
-                  Experiencing mild headache and slight fatigue. Pain level
-                  around 4/10. Started after lunch, possibly related to screen
-                  time.
-                </p>
-              </div>
-
-              <!-- Symptom Entry 2 -->
-              <div
-                class="symptom-entry p-4 border-bottom"
-                style="border-color: rgba(16, 185, 129, 0.2)"
-              >
-                <div
-                  class="d-flex justify-content-between align-items-start mb-2"
-                >
-                  <div class="d-flex align-items-center">
-                    <span
-                      class="badge me-2"
-                      style="
-                        background: #10b981;
-                        color: white;
-                        padding: 5px 10px;
-                        border-radius: 15px;
-                      "
-                    >
-                      Mild
-                    </span>
-                    <span
-                      class="badge"
-                      style="
-                        background: #8b5cf6;
-                        color: white;
-                        padding: 5px 10px;
-                        border-radius: 15px;
-                      "
-                    >
-                      Digestive
-                    </span>
-                  </div>
-                  <small style="color: #64748b">
-                    <i class="fas fa-clock me-1"></i>
-                    Yesterday, 8:45 PM
-                  </small>
-                </div>
-                <p style="color: #f8fafc; margin: 0; line-height: 1.6">
-                  Slight stomach discomfort after dinner. No nausea, just mild
-                  bloating. Resolved after taking a short walk.
-                </p>
-              </div>
-
-              <!-- Symptom Entry 3 -->
-              <div
-                class="symptom-entry p-4 border-bottom"
-                style="border-color: rgba(16, 185, 129, 0.2)"
-              >
-                <div
-                  class="d-flex justify-content-between align-items-start mb-2"
-                >
-                  <div class="d-flex align-items-center">
-                    <span
-                      class="badge me-2"
-                      style="
-                        background: #10b981;
-                        color: white;
-                        padding: 5px 10px;
-                        border-radius: 15px;
-                      "
-                    >
-                      Mild
-                    </span>
-                    <span
-                      class="badge"
-                      style="
-                        background: #06b6d4;
-                        color: white;
-                        padding: 5px 10px;
-                        border-radius: 15px;
-                      "
-                    >
-                      Mental Health
-                    </span>
-                  </div>
-                  <small style="color: #64748b">
-                    <i class="fas fa-clock me-1"></i>
-                    2 days ago, 10:15 AM
-                  </small>
-                </div>
-                <p style="color: #f8fafc; margin: 0; line-height: 1.6">
-                  Feeling well-rested and energetic today. Good mood, no
-                  anxiety. Slept 8 hours last night which helped significantly.
-                </p>
-              </div>
-
-              <!-- Symptom Entry 4 -->
-              <div class="symptom-entry p-4">
-                <div
-                  class="d-flex justify-content-between align-items-start mb-2"
-                >
-                  <div class="d-flex align-items-center">
-                    <span
-                      class="badge me-2"
-                      style="
-                        background: #ef4444;
-                        color: white;
-                        padding: 5px 10px;
-                        border-radius: 15px;
-                      "
-                    >
-                      Severe
-                    </span>
-                    <span
-                      class="badge"
-                      style="
-                        background: #f97316;
-                        color: white;
-                        padding: 5px 10px;
-                        border-radius: 15px;
-                      "
-                    >
-                      Respiratory
-                    </span>
-                  </div>
-                  <small style="color: #64748b">
-                    <i class="fas fa-clock me-1"></i>
-                    3 days ago, 6:20 AM
-                  </small>
-                </div>
-                <p style="color: #f8fafc; margin: 0; line-height: 1.6">
-                  Woke up with severe congestion and difficulty breathing
-                  through nose. Took decongestant and used steam inhalation.
-                  Improved by afternoon.
-                </p>
-              </div>
-            </div>
+            <div class="card-body p-0" id="symptomHistory"></div>
           </div>
         </div>
       </div>
     </main>
 
+    <div
+      id="user-data"
+      data-user="<%- JSON.stringify(user || {}) %>"
+      style="display: none"
+    ></div>
     <script>
+      const stringeduser = JSON.parse(
+        document.getElementById("user-data").dataset.user
+      );
+      console.log(stringeduser);
+
       // Handle symptom form submission
       document
         .getElementById("symptomForm")

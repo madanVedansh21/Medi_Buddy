@@ -21,6 +21,15 @@ const userSchema = new Schema(
       ref: "Medi",
       default: [],
     },
+    logs: {
+      type: [
+        {
+          message: { type: String },
+          timestamp: { type: Date, default: Date.now },
+        },
+      ],
+      default: [],
+    },
     password: {
       type: String,
       required: true,
