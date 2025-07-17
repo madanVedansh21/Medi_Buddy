@@ -255,11 +255,27 @@
 
           if (symptomText.trim()) {
             addSymptomEntry(symptomText, severity, category);
+            saveLogToServer(symptomText, severity, category);
             document.getElementById("symptomForm").reset();
             showNotification("✅ Symptom logged successfully!", "success");
           }
         });
 
+async function saveLogToServer(text, severity, category) {
+  try {
+    const res = await fetch('/logsdata', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ symptomText: text, severity, category })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Request failed');
+    console.log('Saved on server, updated logs:', data.logs);
+  } catch (err) {
+    console.error('Failed to save log on server:', err);
+    showNotification("⚠️ Failed to save symptom on server", "warning");
+  }
+}
       // Function to add new symptom entry
       function addSymptomEntry(text, severity, category) {
         const historyContainer = document.getElementById("symptomHistory");

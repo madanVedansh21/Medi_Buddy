@@ -25,7 +25,7 @@ const userSchema = new Schema(
       type: [
         {
           message: { type: String },
-          severity: { type: String, enum: ["Mild", "Moderate", "Severe"] },
+          severity: { type: String },
           category: { type: String },
           timestamp: { type: Date, default: Date.now },
         },

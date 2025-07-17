@@ -133,13 +133,13 @@ const logsData = async (req, res) => {
   // we have the user in the body
   const user = req.user; // assuming user is set by verifyJWT middleware
   if (!user) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized login again !" });
   }
   try {
     const logEntry = {
       message: symptomText,
-      severity,
-      category,
+      severity: severity,
+      category: category,
       timestamp: new Date(),
     };
 

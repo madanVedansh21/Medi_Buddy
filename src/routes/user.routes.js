@@ -27,7 +27,7 @@ router
 
 router.route("/logout").post(verifyJWT, logoutUser);
 router.route("/contact").post(contactUSContent);
-router.route("/logsdata").post(logsData); // not applying the verifyJWT middleware
+router.route("/logsdata").post(verifyJWT, logsData); // not applying the verifyJWT middleware
 // export the router
 
 export default router;
