@@ -125,10 +125,49 @@ const contactUSContent = async (req, res) => {
   }
 };
 
+const logsData = async (req, res) => {
+  const { symptomText, severity, category } = req.body;
+  if (!symptomText || !severity || !category) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+  // we have the user in the body
+  const user = req.user; // assuming user is set by verifyJWT middleware
+  if (!user) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  try {
+    const logEntry = {
+      message: symptomText,
+      severity,
+      category,
+      timestamp: new Date(),
+    };
+
+    // Find the user and update their logs
+    const updatedUser = await User.findByIdAndUpdate(
+      user._id,
+      { $push: { logs: logEntry } },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({
+      message: "Log entry added successfully",
+      logs: updatedUser.logs,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+};
 export {
   registerUser,
   generateAccessAndRefereshTokens,
   loginUser,
   logoutUser,
   contactUSContent,
+  logsData,
 };
