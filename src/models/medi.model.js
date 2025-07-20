@@ -11,6 +11,10 @@ const mediSchema = new Schema(
       ref: "User",
       required: true,
     },
+    dosageTimes: {
+      type: [Date], // Array of Date objects
+      required: true,
+    },
     medicineStarDate: {
       type: Date,
       required: true,
@@ -29,6 +33,6 @@ const mediSchema = new Schema(
   { timestamps: true }
 );
 
-const Medi = mongoose.model("Medi", mediSchema);
+const medicines = mongoose.model("Medi", mediSchema);
 
-export default Medi;
+export default medicines;

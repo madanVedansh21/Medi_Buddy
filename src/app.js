@@ -3,7 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
-
+import medicines from "./models/medi.model.js";
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -47,7 +47,10 @@ app.get("/contact-us", (req, res) => {
 });
 
 app.get("/medicines", verifyJWT, (req, res) => {
-  res.render("medi/medicinesRecord", { user: req.user });
+  res.render("medi/medicinesRecord", {
+    user: req.user,
+    medicines: Array.isArray(medicines) ? medicines : [],
+  }); // now medicines are not fetched from DB that task is remaining
 });
 app.get("/logs", verifyJWT, (req, res) => {
   res.render("medi/logs", { user: req.user });

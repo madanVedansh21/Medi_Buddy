@@ -163,6 +163,11 @@ const logsData = async (req, res) => {
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
+
+const addMedicines = async (req, res) => {
+  const { medicineName, dosageTimes, medicineStarDate, noOfDoseInADay, totalNoOfMedicines, endDate } = req.body;
+  const userId = req.user._id; // comes from verifyJWT middleware 
+}
 export {
   registerUser,
   generateAccessAndRefereshTokens,
