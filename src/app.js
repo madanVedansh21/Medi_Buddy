@@ -3,7 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
-import medicines from "./models/medi.model.js";
+import medicines from "./models/medi.model.js"; // Use 'medicines' everywhere
 const app = express();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -46,11 +46,25 @@ app.get("/contact-us", (req, res) => {
   res.render("auth/contactUs");
 });
 
-app.get("/medicines", verifyJWT, (req, res) => {
-  res.render("medi/medicinesRecord", {
-    user: req.user,
-    medicines: Array.isArray(medicines) ? medicines : [],
-  }); // now medicines are not fetched from DB that task is remaining
+app.get("/medicines", verifyJWT, async (req, res) => {
+  try {
+    const medicinesArr = await medicines.find({ userId: req.user._id });
+
+    res.render("medi/medicinesRecord", {
+      user: req.user,
+      medicine: medicinesArr.map((med) => ({
+        ...med.toObject(),
+        dosageTimes: Array.isArray(med.dosageTimes) ? med.dosageTimes : [],
+      })),
+      medicines: medicinesArr.map((med) => ({
+        ...med.toObject(),
+        dosageTimes: Array.isArray(med.dosageTimes) ? med.dosageTimes : [],
+      })),
+    });
+  } catch (err) {
+    console.error("Error fetching medicines:", err);
+    res.status(500).send("Server error");
+  }
 });
 app.get("/logs", verifyJWT, (req, res) => {
   res.render("medi/logs", { user: req.user });

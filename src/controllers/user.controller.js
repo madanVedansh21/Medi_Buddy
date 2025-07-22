@@ -221,7 +221,7 @@ const addMedicines = async (req, res) => {
     // Step 3: Add medicine reference to the user
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { $push: { medicines: medicine._id } },
+      { $push: { ongoingMedicines: medicine._id } },
       { new: true, runValidators: true }
     );
 
@@ -231,9 +231,7 @@ const addMedicines = async (req, res) => {
         .json({ message: "Error saving the medicine to user" });
     }
 
-    return res.status(201).json({
-      message: "Medicine added successfully",
-    });
+    return res.redirect("/medicines");
   } catch (error) {
     console.error("Error adding medicine:", error);
     return res.status(500).json({ message: "Internal server error" });

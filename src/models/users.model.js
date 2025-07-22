@@ -16,9 +16,9 @@ const userSchema = new Schema(
       trim: true,
       lowercase: true,
     },
-    ongoingMedicines: {
+    medicine: {
       type: [mongoose.Schema.Types.ObjectId],
-      ref: "Medi",
+      ref: "medicines",
       default: [],
     },
     logs: {
