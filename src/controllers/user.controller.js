@@ -1,5 +1,5 @@
 import User from "../models/users.model.js";
-import Medi from "../models/medi.model.js";
+import medicines from "../models/medi.model.js";
 import jwt from "jsonwebtoken";
 import fs from "fs";
 import { ApiResponse } from "../util/ApiResponse.js";
@@ -165,9 +165,81 @@ const logsData = async (req, res) => {
 };
 
 const addMedicines = async (req, res) => {
-  const { medicineName, dosageTimes, medicineStarDate, noOfDoseInADay, totalNoOfMedicines, endDate } = req.body;
-  const userId = req.user._id; // comes from verifyJWT middleware 
-}
+  // deestructure required
+  // check if all fields are present or not
+  // create a new medicine document and save it to the database
+
+  const {
+    medicineName,
+    dosageTimes,
+    medicineStarDate,
+    noOfDoseInADay,
+    totalNoOfMedicines,
+    endDate,
+  } = req.body;
+  const userId = req.user._id; // comes from verifyJWT middleware
+  if (!medicineName || !dosageTimes || !medicineStarDate || !noOfDoseInADay) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+  try {
+    const parsedDosageTimes = Array.isArray(dosageTimes)
+      ? dosageTimes.map((time) => {
+          const [hh, mm] = time.split(":");
+          const d = new Date();
+          d.setHours(parseInt(hh));
+          d.setMinutes(parseInt(mm));
+          d.setSeconds(0);
+          d.setMilliseconds(0);
+          return d;
+        })
+      : (() => {
+          const [hh, mm] = dosageTimes.split(":");
+          const d = new Date();
+          d.setHours(parseInt(hh));
+          d.setMinutes(parseInt(mm));
+          d.setSeconds(0);
+          d.setMilliseconds(0);
+          return [d];
+        })();
+
+    const medicine = await medicines.create({
+      medicineName,
+      userId,
+      dosageTimes: parsedDosageTimes,
+      medicineStarDate: new Date(medicineStarDate),
+      noOfDoseInADay,
+      totalNoOfMedicines,
+      endDate: endDate ? new Date(endDate) : null,
+    });
+
+    if (!medicine) {
+      return res.status(500).json({
+        message: "Something went wrong while adding the medicine",
+      });
+    }
+
+    // Step 3: Add medicine reference to the user
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $push: { medicines: medicine._id } },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      return res
+        .status(500)
+        .json({ message: "Error saving the medicine to user" });
+    }
+
+    return res.status(201).json({
+      message: "Medicine added successfully",
+    });
+  } catch (error) {
+    console.error("Error adding medicine:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export {
   registerUser,
   generateAccessAndRefereshTokens,
@@ -175,4 +247,5 @@ export {
   logoutUser,
   contactUSContent,
   logsData,
+  addMedicines,
 };

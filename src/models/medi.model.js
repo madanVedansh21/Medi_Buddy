@@ -33,6 +33,6 @@ const mediSchema = new Schema(
   { timestamps: true }
 );
 
-const medicines = mongoose.model("Medi", mediSchema);
+const medicines = mongoose.model("medicines", mediSchema);
 
 export default medicines;
