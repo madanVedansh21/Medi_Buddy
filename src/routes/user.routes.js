@@ -8,6 +8,7 @@ import {
   contactUSContent,
   logsData,
   addMedicines,
+  deleteMedicine,
 } from "../controllers/user.controller.js";
 
 const router = Router();
@@ -50,7 +51,9 @@ router.route("/logsdata/:logId").delete(verifyJWT, async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
 router.route("/add/medicines").post(verifyJWT, addMedicines);
+router.route(`/del/medicines/:medicineId`).delete(verifyJWT, deleteMedicine); // add the controlelr to delete medicines
 // export the router
 
 export default router;

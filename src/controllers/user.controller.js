@@ -238,6 +238,34 @@ const addMedicines = async (req, res) => {
   }
 };
 
+const deleteMedicine = async (req, res) => {
+  const medicineId = req.params.medicineId;
+  const userId = req.user._id; // comes from verifyJWT middleware
+  if (!medicineId) {
+    return res.status(400).json({ message: "Medicine ID is required" });
+  }
+  try {
+    // Find the user and remove the medicine from their ongoingMedicines array
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { ongoingMedicines: medicineId } },
+      { new: true, runValidators: true }
+    );
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    // Now delete the medicine document
+    const medicine = await medicines.findByIdAndDelete(medicineId);
+    if (!medicine) {
+      return res.status(404).json({ message: "Medicine not found" });
+    }
+    return res.status(200).json({ message: "Medicine deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting medicine:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export {
   registerUser,
   generateAccessAndRefereshTokens,
@@ -246,4 +274,5 @@ export {
   contactUSContent,
   logsData,
   addMedicines,
+  deleteMedicine,
 };
