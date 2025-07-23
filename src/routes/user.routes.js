@@ -1,6 +1,8 @@
 import express, { Router } from "express";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import User from "../models/users.model.js";
+import medicines from "../models/medi.model.js";
+import CareTeam from "../models/careteam.models.js";
 import {
   registerUser,
   loginUser,
@@ -9,6 +11,9 @@ import {
   logsData,
   addMedicines,
   deleteMedicine,
+  addCareTeamMember,
+  unmarkDose,
+  markDose,
 } from "../controllers/user.controller.js";
 
 const router = Router();
@@ -54,6 +59,9 @@ router.route("/logsdata/:logId").delete(verifyJWT, async (req, res) => {
 
 router.route("/add/medicines").post(verifyJWT, addMedicines);
 router.route(`/del/medicines/:medicineId`).delete(verifyJWT, deleteMedicine); // add the controlelr to delete medicines
+router.route("/care-team").post(verifyJWT, addCareTeamMember);
+router.route("/api/medicines/mark-dose").post(verifyJWT, markDose);
+router.route("/api/medicines/unmark-dose").post(verifyJWT, unmarkDose);
 // export the router
 
 export default router;

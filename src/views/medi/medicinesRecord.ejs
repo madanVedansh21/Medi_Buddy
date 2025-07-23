@@ -622,6 +622,29 @@
           // Store dose taken information in localStorage
           storeDoseTaken(medicineId, doseIndex, now);
 
+          // Mark dose as taken in the database
+          fetch("/api/medicines/mark-dose", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              medicineId,
+              doseIndex,
+              takenAt: now.toISOString(),
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (!data.success) {
+                showNotification("❌ Failed to mark dose as taken", "error");
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              showNotification("❌ Failed to mark dose as taken", "error");
+            });
+
           showNotification(
             `✅ ${medicineName} dose ${
               parseInt(doseIndex) + 1
@@ -634,6 +657,28 @@
 
           // Remove dose from localStorage
           removeDoseTaken(medicineId, doseIndex);
+
+          // Unmark dose in the database
+          fetch("/api/medicines/unmark-dose", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              medicineId,
+              doseIndex,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (!data.success) {
+                showNotification("❌ Failed to unmark dose", "error");
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              showNotification("❌ Failed to unmark dose", "error");
+            });
 
           showNotification(
             `ℹ️ ${medicineName} dose ${parseInt(doseIndex) + 1} unmarked`,

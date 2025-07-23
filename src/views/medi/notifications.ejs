@@ -66,7 +66,7 @@
         </div>
       </div>
 
-      <!-- Current Concerned Person -->
+      <!-- Current User Profile -->
       <div class="row mb-4">
         <div class="col-12">
           <div
@@ -85,11 +85,11 @@
               "
             >
               <h3 style="color: #f8fafc; margin: 0; font-weight: 600">
-                <i class="fas fa-user-check me-2"></i>
-                Current Care Team Member
+                <i class="fas fa-user me-2"></i>
+                Your Profile
               </h3>
             </div>
-            <div class="card-body p-4" id="currentCareTeam">
+            <div class="card-body p-4">
               <div class="row align-items-center">
                 <div class="col-md-8">
                   <div class="d-flex align-items-center">
@@ -101,61 +101,20 @@
                     </div>
                     <div>
                       <h5 style="color: #f8fafc; margin: 0; font-weight: 600">
-                        Sarah Johnson
+                        <%= user.fullName %>
                       </h5>
-                      <p style="color: #94a3b8; margin: 0">
-                        sarah.johnson@email.com
-                      </p>
+                      <p style="color: #94a3b8; margin: 0"><%= user.email %></p>
                       <small style="color: #64748b">
-                        <i class="fas fa-shield-alt me-1"></i>
-                        Primary caregiver - Active notifications
+                        <i class="fas fa-calendar me-1"></i>
+                        Member since <%= new
+                        Date(user.createdAt).toLocaleDateString('en-US', {
+                        month: 'long', year: 'numeric' }) %>
                       </small>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-4 text-end">
-                  <button
-                    class="btn btn-outline-danger"
-                    onclick="removeCareTeamMember()"
-                  >
-                    <i class="fas fa-user-minus me-2"></i>
-                    Remove
-                  </button>
-                </div>
-              </div>
-              <hr
-                style="border-color: rgba(245, 158, 11, 0.2); margin: 20px 0"
-              />
-              <div class="row text-center">
-                <div class="col-md-4">
-                  <div class="p-2">
-                    <i
-                      class="fas fa-bell mb-2"
-                      style="font-size: 1.5rem; color: #10b981"
-                    ></i>
-                    <h6 style="color: #f8fafc; margin: 0">Status</h6>
-                    <small style="color: #10b981">Active</small>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="p-2">
-                    <i
-                      class="fas fa-clock mb-2"
-                      style="font-size: 1.5rem; color: #3b82f6"
-                    ></i>
-                    <h6 style="color: #f8fafc; margin: 0">Last Notification</h6>
-                    <small style="color: #94a3b8">2 hours ago</small>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="p-2">
-                    <i
-                      class="fas fa-envelope mb-2"
-                      style="font-size: 1.5rem; color: #f59e0b"
-                    ></i>
-                    <h6 style="color: #f8fafc; margin: 0">Total Alerts</h6>
-                    <small style="color: #94a3b8">12 this month</small>
-                  </div>
+                  <div class="d-flex flex-column align-items-end"></div>
                 </div>
               </div>
             </div>
@@ -183,11 +142,11 @@
             >
               <h3 style="color: #f8fafc; margin: 0; font-weight: 600">
                 <i class="fas fa-user-plus me-2"></i>
-                Add New Care Team Member
+                Add Care Team Member
               </h3>
             </div>
             <div class="card-body p-4">
-              <form id="careTeamForm">
+              <form action="/care-team" method="POST" id="careTeamForm">
                 <div class="row">
                   <div class="col-md-6 mb-3">
                     <label
@@ -201,6 +160,7 @@
                       type="text"
                       class="form-control"
                       id="caregiverName"
+                      name="caregiverName"
                       placeholder="Enter caregiver's full name"
                       style="
                         background: rgba(15, 23, 42, 0.5);
@@ -223,6 +183,7 @@
                       type="email"
                       class="form-control"
                       id="caregiverEmail"
+                      name="caregiverEmail"
                       placeholder="Enter email address"
                       style="
                         background: rgba(15, 23, 42, 0.5);
@@ -246,6 +207,7 @@
                     <select
                       class="form-select"
                       id="relationship"
+                      name="relationship"
                       style="
                         background: rgba(15, 23, 42, 0.5);
                         border: 1px solid rgba(245, 158, 11, 0.3);
@@ -271,6 +233,7 @@
                     <select
                       class="form-select"
                       id="notificationDelay"
+                      name="notificationDelay"
                       style="
                         background: rgba(15, 23, 42, 0.5);
                         border: 1px solid rgba(245, 158, 11, 0.3);
@@ -291,6 +254,7 @@
                       class="form-check-input"
                       type="checkbox"
                       id="enableNotifications"
+                      name="enableNotifications"
                       checked
                     />
                     <label
@@ -327,7 +291,7 @@
         </div>
       </div>
 
-      <!-- Notification History -->
+      <!-- Notification Settings Info -->
       <div class="row">
         <div class="col-12">
           <div
@@ -346,180 +310,54 @@
               "
             >
               <h3 style="color: #f8fafc; margin: 0; font-weight: 600">
-                <i class="fas fa-history me-2"></i>
-                Recent Notification History
+                <i class="fas fa-info-circle me-2"></i>
+                How Notifications Work
               </h3>
             </div>
-            <div class="card-body p-0">
-              <!-- Notification 1 -->
-              <div
-                class="notification-item p-4 border-bottom"
-                style="border-color: rgba(245, 158, 11, 0.2)"
-              >
-                <div class="d-flex justify-content-between align-items-start">
-                  <div class="d-flex align-items-center">
-                    <div class="me-3">
-                      <i
-                        class="fas fa-exclamation-triangle"
-                        style="font-size: 1.5rem; color: #f59e0b"
-                      ></i>
-                    </div>
-                    <div>
-                      <h6 style="color: #f8fafc; margin: 0; font-weight: 600">
-                        Missed Medication Alert
-                      </h6>
-                      <p style="color: #94a3b8; margin: 0; font-size: 0.9rem">
-                        Sarah Johnson was notified about missed Paracetamol dose
-                      </p>
-                    </div>
-                  </div>
-                  <div class="text-end">
-                    <small style="color: #64748b">
-                      <i class="fas fa-clock me-1"></i>
-                      2 hours ago
-                    </small>
-                    <br />
-                    <span
-                      class="badge"
-                      style="
-                        background: #10b981;
-                        color: white;
-                        padding: 3px 8px;
-                        border-radius: 10px;
-                        font-size: 0.7rem;
-                      "
-                    >
-                      Delivered
-                    </span>
+            <div class="card-body p-4">
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <div class="text-center p-3">
+                    <i
+                      class="fas fa-clock mb-3"
+                      style="font-size: 2.5rem; color: #3b82f6"
+                    ></i>
+                    <h5 style="color: #f8fafc; margin-bottom: 10px">
+                      Automatic Monitoring
+                    </h5>
+                    <p style="color: #94a3b8; font-size: 0.9rem; margin: 0">
+                      We automatically track your medication schedule and detect
+                      missed doses
+                    </p>
                   </div>
                 </div>
-              </div>
-
-              <!-- Notification 2 -->
-              <div
-                class="notification-item p-4 border-bottom"
-                style="border-color: rgba(245, 158, 11, 0.2)"
-              >
-                <div class="d-flex justify-content-between align-items-start">
-                  <div class="d-flex align-items-center">
-                    <div class="me-3">
-                      <i
-                        class="fas fa-info-circle"
-                        style="font-size: 1.5rem; color: #3b82f6"
-                      ></i>
-                    </div>
-                    <div>
-                      <h6 style="color: #f8fafc; margin: 0; font-weight: 600">
-                        Daily Summary
-                      </h6>
-                      <p style="color: #94a3b8; margin: 0; font-size: 0.9rem">
-                        Daily medication compliance report sent to Sarah Johnson
-                      </p>
-                    </div>
-                  </div>
-                  <div class="text-end">
-                    <small style="color: #64748b">
-                      <i class="fas fa-clock me-1"></i>
-                      Yesterday, 9:00 PM
-                    </small>
-                    <br />
-                    <span
-                      class="badge"
-                      style="
-                        background: #10b981;
-                        color: white;
-                        padding: 3px 8px;
-                        border-radius: 10px;
-                        font-size: 0.7rem;
-                      "
-                    >
-                      Delivered
-                    </span>
+                <div class="col-md-4 mb-3">
+                  <div class="text-center p-3">
+                    <i
+                      class="fas fa-envelope mb-3"
+                      style="font-size: 2.5rem; color: #f59e0b"
+                    ></i>
+                    <h5 style="color: #f8fafc; margin-bottom: 10px">
+                      Email Alerts
+                    </h5>
+                    <p style="color: #94a3b8; font-size: 0.9rem; margin: 0">
+                      Care team members receive email notifications when you
+                      miss medications
+                    </p>
                   </div>
                 </div>
-              </div>
-
-              <!-- Notification 3 -->
-              <div
-                class="notification-item p-4 border-bottom"
-                style="border-color: rgba(245, 158, 11, 0.2)"
-              >
-                <div class="d-flex justify-content-between align-items-start">
-                  <div class="d-flex align-items-center">
-                    <div class="me-3">
-                      <i
-                        class="fas fa-heart"
-                        style="font-size: 1.5rem; color: #ef4444"
-                      ></i>
-                    </div>
-                    <div>
-                      <h6 style="color: #f8fafc; margin: 0; font-weight: 600">
-                        Health Update
-                      </h6>
-                      <p style="color: #94a3b8; margin: 0; font-size: 0.9rem">
-                        Symptom log update shared with care team
-                      </p>
-                    </div>
-                  </div>
-                  <div class="text-end">
-                    <small style="color: #64748b">
-                      <i class="fas fa-clock me-1"></i>
-                      2 days ago, 3:15 PM
-                    </small>
-                    <br />
-                    <span
-                      class="badge"
-                      style="
-                        background: #10b981;
-                        color: white;
-                        padding: 3px 8px;
-                        border-radius: 10px;
-                        font-size: 0.7rem;
-                      "
-                    >
-                      Delivered
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Notification 4 -->
-              <div class="notification-item p-4">
-                <div class="d-flex justify-content-between align-items-start">
-                  <div class="d-flex align-items-center">
-                    <div class="me-3">
-                      <i
-                        class="fas fa-user-plus"
-                        style="font-size: 1.5rem; color: #10b981"
-                      ></i>
-                    </div>
-                    <div>
-                      <h6 style="color: #f8fafc; margin: 0; font-weight: 600">
-                        Care Team Added
-                      </h6>
-                      <p style="color: #94a3b8; margin: 0; font-size: 0.9rem">
-                        Sarah Johnson was added as your primary caregiver
-                      </p>
-                    </div>
-                  </div>
-                  <div class="text-end">
-                    <small style="color: #64748b">
-                      <i class="fas fa-clock me-1"></i>
-                      1 week ago
-                    </small>
-                    <br />
-                    <span
-                      class="badge"
-                      style="
-                        background: #10b981;
-                        color: white;
-                        padding: 3px 8px;
-                        border-radius: 10px;
-                        font-size: 0.7rem;
-                      "
-                    >
-                      Completed
-                    </span>
+                <div class="col-md-4 mb-3">
+                  <div class="text-center p-3">
+                    <i
+                      class="fas fa-shield-alt mb-3"
+                      style="font-size: 2.5rem; color: #10b981"
+                    ></i>
+                    <h5 style="color: #f8fafc; margin-bottom: 10px">
+                      Privacy Protected
+                    </h5>
+                    <p style="color: #94a3b8; font-size: 0.9rem; margin: 0">
+                      Only essential medication compliance information is shared
+                    </p>
                   </div>
                 </div>
               </div>
@@ -530,82 +368,23 @@
     </main>
 
     <script>
-      // Handle care team form submission
-      document
-        .getElementById("careTeamForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          const name = document.getElementById("caregiverName").value;
-          const email = document.getElementById("caregiverEmail").value;
-          const relationship = document.getElementById("relationship").value;
-          const delay = document.getElementById("notificationDelay").value;
-          const enabled = document.getElementById(
-            "enableNotifications"
-          ).checked;
-
-          if (name.trim() && email.trim()) {
-            addCareTeamMember(name, email, relationship, delay, enabled);
-            document.getElementById("careTeamForm").reset();
-            showNotification(
-              "✅ Care team member added successfully!",
-              "success"
-            );
-          }
-        });
-
-      // Function to add care team member
-      function addCareTeamMember(name, email, relationship, delay, enabled) {
-        // In real implementation, this would send data to backend
-        console.log("Adding care team member:", {
-          name,
-          email,
-          relationship,
-          delay,
-          enabled,
-        });
-      }
-
-      // Function to remove care team member
-      function removeCareTeamMember() {
-        if (
-          confirm(
-            "Are you sure you want to remove this care team member? They will no longer receive notifications about your health status."
-          )
-        ) {
-          showNotification(
-            "✅ Care team member removed successfully!",
-            "success"
-          );
-
-          // Update the current care team section to show "No care team member assigned"
-          document.getElementById("currentCareTeam").innerHTML = `
-                    <div class="text-center py-4">
-                        <i class="fas fa-user-slash mb-3" style="font-size: 3rem; color: #64748b;"></i>
-                        <h5 style="color: #94a3b8;">No Care Team Member Assigned</h5>
-                        <p style="color: #64748b; margin: 0;">Add a family member or caregiver to receive health notifications</p>
-                    </div>
-                `;
-        }
-      }
-
       // Function to show notifications
       function showNotification(message, type) {
         const notification = document.createElement("div");
         notification.className = `alert position-fixed`;
         notification.style.cssText = `
-                top: 20px; right: 20px; z-index: 1050; 
-                background: ${
-                  type === "success"
-                    ? "#10b981"
-                    : type === "info"
-                    ? "#3b82f6"
-                    : "#f59e0b"
-                }; 
-                color: white; border: none; border-radius: 8px;
-                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-                padding: 15px 20px; min-width: 300px;
-            `;
+          top: 20px; right: 20px; z-index: 1050; 
+          background: ${
+            type === "success"
+              ? "#10b981"
+              : type === "info"
+              ? "#3b82f6"
+              : "#f59e0b"
+          }; 
+          color: white; border: none; border-radius: 8px;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+          padding: 15px 20px; min-width: 300px;
+        `;
         notification.textContent = message;
 
         document.body.appendChild(notification);
@@ -615,6 +394,12 @@
         }, 3000);
       }
     </script>
+
+    <% if (typeof success !== 'undefined' && success) { %>
+    <script>
+      showNotification("✅ Care team member added successfully!", "success");
+    </script>
+    <% } %>
 
     <!-- Bootstrap JS Bundle CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

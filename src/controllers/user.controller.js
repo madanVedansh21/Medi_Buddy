@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken";
 import fs from "fs";
 import { ApiResponse } from "../util/ApiResponse.js";
 import { ApiError } from "../util/ApiError.js";
+import DailyDoseTracking from "../models/DailyDoseTracking.js";
+import CareTeam from "../models/careteam.models.js";
 // register user controller
 
 const generateAccessAndRefereshTokens = async (userId) => {
@@ -266,6 +268,77 @@ const deleteMedicine = async (req, res) => {
   }
 };
 
+const addCareTeamMember = async (req, res) => {
+  try {
+    const {
+      caregiverName,
+      caregiverEmail,
+      relationship,
+      notificationDelay,
+      enableNotifications,
+    } = req.body;
+
+    const newCareTeamMember = new CareTeam({
+      userId: req.user._id,
+      caregiverName,
+      caregiverEmail,
+      relationship,
+      notificationDelay: parseInt(notificationDelay),
+      enableNotifications: enableNotifications === "on",
+    });
+
+    await newCareTeamMember.save();
+    res.redirect("/notifications?success=true");
+  } catch (error) {
+    console.error("Error adding care team member:", error);
+    res.redirect("/notifications?error=true");
+  }
+};
+
+// Mark dose as taken
+const markDose = async (req, res) => {
+  const { medicineId, doseIndex, takenAt } = req.body;
+  const userId = req.user._id;
+  const date = new Date().toISOString().split("T")[0];
+
+  try {
+    await DailyDoseTracking.findOneAndUpdate(
+      { userId, medicineId, date, doseIndex },
+      {
+        userId,
+        medicineId,
+        date,
+        doseIndex,
+        takenAt,
+        isTaken: true,
+        scheduledTime: takenAt, // or use the scheduled time if you have it
+      },
+      { upsert: true, new: true }
+    );
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
+
+// Unmark dose as taken
+const unmarkDose = async (req, res) => {
+  const { medicineId, doseIndex } = req.body;
+  const userId = req.user._id;
+  const date = new Date().toISOString().split("T")[0];
+
+  try {
+    await DailyDoseTracking.findOneAndUpdate(
+      { userId, medicineId, date, doseIndex },
+      { isTaken: false, takenAt: null },
+      { new: true }
+    );
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+};
+
 export {
   registerUser,
   generateAccessAndRefereshTokens,
@@ -275,4 +348,7 @@ export {
   logsData,
   addMedicines,
   deleteMedicine,
+  addCareTeamMember,
+  markDose,
+  unmarkDose,
 };

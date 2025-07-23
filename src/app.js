@@ -66,9 +66,11 @@ app.get("/medicines", verifyJWT, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
+
 app.get("/logs", verifyJWT, (req, res) => {
   res.render("medi/logs", { user: req.user });
 });
+
 app.get("/notifications", verifyJWT, (req, res) => {
   res.render("medi/notifications", { user: req.user });
 });
