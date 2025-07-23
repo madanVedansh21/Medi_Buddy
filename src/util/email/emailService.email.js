@@ -1,7 +1,7 @@
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 // Create transporter
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
   service: "gmail", // or your email service
   auth: {
     user: process.env.EMAIL_USER,
@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransporter({
 });
 
 // Function to send missed medication alert
-async function sendMissedMedicationAlert(
+export async function sendMissedMedicationAlert(
   userEmail,
   userName,
   medicineName,
@@ -62,7 +62,3 @@ async function sendMissedMedicationAlert(
     console.error("Error sending email:", error);
   }
 }
-
-module.exports = {
-  sendMissedMedicationAlert,
-};

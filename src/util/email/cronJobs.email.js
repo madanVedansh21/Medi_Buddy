@@ -1,8 +1,8 @@
-const cron = require("node-cron");
-const Medicine = require("../models/Medicine"); // adjust path as needed
-const CareTeam = require("../models/CareTeam"); // adjust path as needed
-const DailyDoseTracking = require("../models/DailyDoseTracking"); // adjust path as needed
-const { sendMissedMedicationAlert } = require("./emailService");
+import medicines from "../../models/medi.model.js";
+import CareTeam from "../../models/careteam.models.js";
+import DailyDoseTracking from "../../models/DailyDoseTracking.js";
+import { sendMissedMedicationAlert } from "./emailService.email.js";
+import cron from "node-cron";
 
 // Run every 15 minutes to check for missed medications
 cron.schedule("*/15 * * * *", async () => {
@@ -13,9 +13,9 @@ cron.schedule("*/15 * * * *", async () => {
     const today = now.toISOString().split("T")[0];
 
     // Get all active medicines
-    const medicines = await Medicine.find({}).populate("userId");
+    const allMedicines = await medicines.find({}).populate("userId");
 
-    for (const medicine of medicines) {
+    for (const medicine of allMedicines) {
       // Check if medicine is within active date range
       const startDate = new Date(medicine.medicineStarDate);
       const endDate = medicine.endDate ? new Date(medicine.endDate) : null;
