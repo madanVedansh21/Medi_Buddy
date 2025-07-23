@@ -77,5 +77,6 @@ app.get("/notifications", verifyJWT, (req, res) => {
 // import routes
 import userRouter from "./routes/user.routes.js";
 app.use("/", userRouter);
+import "./util/email/cronJobs.email.js"; // This will start the cron job
 
 export default app;

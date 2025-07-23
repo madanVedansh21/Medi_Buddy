@@ -4,8 +4,8 @@ import DailyDoseTracking from "../../models/DailyDoseTracking.js";
 import { sendMissedMedicationAlert } from "./emailService.email.js";
 import cron from "node-cron";
 
-// Run every 15 minutes to check for missed medications
-cron.schedule("*/15 * * * *", async () => {
+// Run every minutes to check for missed medications
+cron.schedule("* * * * *", async () => {
   console.log("Checking for missed medications...");
 
   try {
