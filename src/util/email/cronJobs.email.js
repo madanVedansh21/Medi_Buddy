@@ -110,5 +110,5 @@ cron.schedule("* * * * *", async () => {
 });
 
 console.log(
-  "Medication monitoring cron job started - checking every 15 minutes"
+  "Medication monitoring cron job started - checking every minute"
 );
