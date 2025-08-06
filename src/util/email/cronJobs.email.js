@@ -4,7 +4,7 @@ import DailyDoseTracking from "../../models/DailyDoseTracking.js";
 import { sendMissedMedicationAlert } from "./emailService.email.js";
 import cron from "node-cron";
 
-// Run every minutes to check for missed medications
+// Run every minute to check for missed medications
 cron.schedule("* * * * *", async () => {
   console.log("Checking for missed medications...");
 
@@ -12,10 +12,18 @@ cron.schedule("* * * * *", async () => {
     const now = new Date();
     const today = now.toISOString().split("T")[0];
 
-    // Get all active medicines
+    // Get all active medicines and populate user info
     const allMedicines = await medicines.find({}).populate("userId");
 
     for (const medicine of allMedicines) {
+      //  Fix: Skip medicines with no associated user
+      if (!medicine.userId) {
+        console.warn(
+          `Skipping medicine ${medicine._id} — no associated user found.`
+        );
+        continue;
+      }
+
       // Check if medicine is within active date range
       const startDate = new Date(medicine.medicineStarDate);
       const endDate = medicine.endDate ? new Date(medicine.endDate) : null;
@@ -43,6 +51,7 @@ cron.schedule("* * * * *", async () => {
 
         if (minutesPassed > 30) {
           // 30 minutes grace period
+
           // Check if dose was taken from database
           const doseRecord = await DailyDoseTracking.findOne({
             userId: medicine.userId._id,
@@ -109,6 +118,4 @@ cron.schedule("* * * * *", async () => {
   }
 });
 
-console.log(
-  "Medication monitoring cron job started - checking every minute"
-);
+console.log("Medication monitoring cron job started - checking every minute");
